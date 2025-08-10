@@ -12,3 +12,25 @@ export default function App() {
     </>
   );
 }
+
+
+/*
+
+
+Header
+    -logo
+    -nav-items
+Body
+    -Search
+    -RestaurantContainer
+         -ReastaurntCard
+
+
+Footer
+  -CopyRight
+  -links
+  -Address
+  -Contact
+
+
+*/
