@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import RestaurantCard from './RestaurantCard';
 
 function Body() {
   return (
-    <div>Body</div>
-  )
+    <div className='body'>
+      <div className='search'>
+        Search 
+      </div>
+      <div className='res-container'>  
+        <RestaurantCard/>
+        <RestaurantCard/>
+      </div>
+    </div>
+  );
 }
 
-export default Body
+
+export default Body;

@@ -9,13 +9,9 @@
   
 }
 
-
-
 .nav-items{
 
    padding:0px 20px;
-
-
 
 }
 .nav-items>ul{
@@ -25,9 +21,29 @@
   display:flex
 }
 .nav-items>ul>li{
-
-
-
   padding:10px;
   margin:10px;
+}
+/* header*/
+
+.res-card{
+  padding:5px;
+
+  width:200px;
+  height: 300px;
+  border:  1px solid black;
+}
+
+.search{
+
+  padding:10px
+
+}
+
+
+/* RestaurantCard*/
+
+.res-logo{
+   
+  width: 190px;
 }
