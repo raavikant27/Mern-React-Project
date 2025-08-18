@@ -1,49 +1,66 @@
-.header{
-  display:flex;
+/* HEADER */
+.header {
+  display: flex;
   justify-content: space-between;
-
   border: 1px solid black;
 }
-.logo{
+
+.logo {
   width: 200px;
-  
 }
 
-.nav-items{
-
-   padding:0px 20px;
-
+.nav-items {
+  padding: 0px 20px;
 }
-.nav-items>ul{
+
+.nav-items > ul {
   font-size: 24px;
-   list-style-type: none;
-   
-  display:flex
+  list-style-type: none;
+  display: flex;
 }
-.nav-items>ul>li{
-  padding:10px;
-  margin:10px;
+
+.nav-items > ul > li {
+  padding: 10px;
+  margin: 10px;
 }
-/* header*/
 
-.res-card{
-  padding:5px;
-
-  width:200px;
+/* RestaurantCard */
+.res-card {
+  padding: 5px;
+  width: 200px;
   height: 300px;
-  border:  1px solid black;
+  overflow: hidden;           /* card ke andar hi sab rahe */
 }
 
-.search{
-
-  padding:10px
-
+.res-card:hover {
+  cursor: pointer;
+  border: 1px solid black;
 }
 
+.search {
+  padding: 10px;
+}
 
-/* RestaurantCard*/
-
-.res-logo{
-   
+.res-logo {
   width: 190px;
+  height: 120px;
+  object-fit: cover;          /* image crop ho kar fit rahe */
+  display: block;
+  margin: 0 auto;
+}
+
+/* card ke andar text fix */
+.res-card h3,
+.res-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  word-wrap: break-word;      /* bade words wrap ho jaye */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* optional ... */
+}
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
 }
