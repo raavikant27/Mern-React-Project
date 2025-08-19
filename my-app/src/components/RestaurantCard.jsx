@@ -3,7 +3,12 @@ import React from 'react'
 
 
 
-function RestaurantCard() {
+function RestaurantCard(props) {
+  //recived and 
+  console.log(props);
+  // we can also write like this 
+  //const {resName,Cuisine}=props;
+
   return (
     <div  className="res-card" style={{ backgroundColor:"#f0f0f0"}}>
 
@@ -15,9 +20,10 @@ function RestaurantCard() {
    
    
    />
-   <h3>burger</h3>
-   <h4>teste</h4>
-   <h4>4.5 star</h4>
+   <h3>{props.resName}</h3>
+   <h4>{props.cuisine}</h4>
+   <h4>{props.rating}</h4>
+   
     </div>
   )
 }

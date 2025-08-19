@@ -8,9 +8,9 @@ function Body() {
         Search 
       </div>
       <div className='res-container'>  
-        <RestaurantCard/>
-        <RestaurantCard/>
-         <RestaurantCard/>
+        <RestaurantCard resName="meghna-Food" cuisine="biryani,North Indian,Asian"rating="3.2"/>
+        <RestaurantCard resName="kgc" cuisine="burgur,fast-Food"rating="5.0" />
+         <RestaurantCard resName="birayani tadk"cuisine="good -food"rating="4.5"/>
         <RestaurantCard/>
          <RestaurantCard/>
         <RestaurantCard/>
