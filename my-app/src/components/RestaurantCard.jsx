@@ -5,9 +5,9 @@ import React from 'react'
 
 function RestaurantCard(props) {
   //recived and 
-  console.log(props);
+  // console.log(props);
   // we can also write like this 
-  //const {resName,Cuisine}=props;
+  const {resData}=props;
 
   return (
     <div  className="res-card" style={{ backgroundColor:"#f0f0f0"}}>
@@ -20,10 +20,10 @@ function RestaurantCard(props) {
    
    
    />
-   <h3>{props.resName}</h3>
-   <h4>{props.cuisine}</h4>
-   <h4>{props.rating}</h4>
-   
+   <h3>{resData.data.name}</h3>
+   <h4>{resData.data.cuisines}</h4>
+   <h4>{resData.data.avgRating}Stars</h4>
+   <h4>{resData.data.cloudinaryImageId}</h4>
     </div>
   )
 }
