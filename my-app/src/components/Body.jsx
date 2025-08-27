@@ -10,7 +10,7 @@ function Body() {
 
   return (
     <ErrorBoundary>
-      <div className="restaurant-list">
+      <div className="res-container"> {/* Using res-container for flex layout */}
         {restaurants.map((restaurant) => {
           console.log("restaurant:", restaurant); // Debug each restaurant object
           if (!restaurant?.info?.id) return null; // Skip invalid restaurants

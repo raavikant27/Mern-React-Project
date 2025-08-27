@@ -1,5 +1,5 @@
-const resObj=[{
-  
+     const resObj=[
+  {
     "card": {
       "@type": "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget",
       "layout": {
@@ -784,5 +784,7 @@ const resObj=[{
         }
       }
     }
-}];
+  }
+]
+
 export default resObj;
