@@ -1,12 +1,27 @@
-# React + Vite
+###  react hooks
+ (normal js utility function)
+ hooks - its just normal javascript u function.
+- useState() - superpowerful state Variable in react.
+- useEffect()
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- whenever state variable changes  react re-render the my components.
+-virtual Dom : is represnetion of actual dom ,
+    also called object represention of whole dom.
+      
+-actual Dom: actual dom are the tag <tag></tag>
+diff -alogorithm -
+  -bascialy find out the  diffrence between two     virtual dom:.
+-right now react learning 18 .
+### Exploring the world ##
 
-Currently, two official plugins are available:
+monolithic -arctitechure
+micrservices archticture- diffrent service for diffrent job.
+and all the service combimne to make big app service like ui, atuh  these are common example.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- all the service talk to each other.
+- all service own service nd domain name
 
-## Expanding the ESLint configuration
+// 1- way to load api 
+pag-lpaod -api -render.
+// load -render the ui nd now  api call.nd render the data 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
