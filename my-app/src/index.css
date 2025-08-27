@@ -70,3 +70,9 @@
   justify-content: flex-start;  /* left aligned */
   align-items: flex-start;      /* top se align */
 }
+
+.filter-btn {
+
+margin: 10px;
+cursor: pointer;
+}
