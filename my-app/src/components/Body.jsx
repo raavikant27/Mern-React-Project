@@ -4,13 +4,14 @@ import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
 
 function Body() {
-  const [listOfRestaurants, setRestaurants] = useState([]);
+  const [listOfRestaurants, setRestaurants] = useState([]); // original full list
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]); // display list
 
   const filterTopRated = () => {
-    const filteredRestaurants = restaurants.filter(
-      (res) => res.info.avgRating > 4.3
+    const filtered = listOfRestaurants.filter(
+      (res) => res.info?.avgRating > 4.3
     );
-    setRestaurants(filteredRestaurants);
+    setFilteredRestaurants(filtered);
   };
 
   useEffect(() => {
@@ -36,14 +37,18 @@ function Body() {
           ?.restaurants || [];
 
       setRestaurants(fetchedRestaurants);
+      setFilteredRestaurants(fetchedRestaurants); // show same initially
     } catch (error) {
       console.log("Fetch error:", error);
     }
   };
 
-  if(listOfRestaurants.length===0){
-    return <Shimmer/>;
+  // Show Shimmer until data is fetched
+  //conditional radering 
+  if (listOfRestaurants.length === 0 && filteredRestaurants.length === 0) {
+    return <Shimmer />;
   }
+
   return (
     <ErrorBoundary>
       <div className="body">
@@ -53,14 +58,13 @@ function Body() {
           </button>
         </div>
         <div className="res-container">
-          {listOfRestaurants.map((restaurant) => {
+          {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
             return (
               <RestaurantCard key={restaurant.info.id} resData={restaurant} />
             );
           })}
         </div>
-        
       </div>
     </ErrorBoundary>
   );

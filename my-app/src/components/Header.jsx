@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 
 function Header() {
+
+   const [btnNameReact,setbtnNameReact]=useState("login");
+
+  
   return (
     <div className="header">
     
@@ -17,11 +22,19 @@ function Header() {
    <li>about us</li>
    <li>Contact us</li>
    <li>cart</li>
-
-
-
-
-
+   <button
+    className='login'
+     onClick={()=>{
+      setbtnNameReact("Logout");
+      console.log(btnNameReact);
+      }}>
+    
+    
+    
+    {btnNameReact}
+    
+    
+    </button>
     </ul>
 
    </div>
