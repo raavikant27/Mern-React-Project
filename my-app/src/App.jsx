@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter,Outlet} from 'react-router-dom';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -10,7 +10,8 @@ const App = () => {
   return (
     <div>
       <Header />
-      <Body />
+   <Outlet/>
+      
       <Footer />
     </div>
   );
@@ -20,9 +21,15 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-     errorElement: <Error/>
-  },
-  {
+    children:[
+
+
+      {
+
+        path:"/",
+        element: <Body />,
+      },
+ {
     path: "/about",
     element: <About />,
   },
@@ -31,6 +38,11 @@ const appRouter = createBrowserRouter([
     path:"/Contact",
     element:<Contact/>,
   }
+
+    ],
+     errorElement: <Error/>
+  },
+  
 ]);
 
 // Main component to provide the router

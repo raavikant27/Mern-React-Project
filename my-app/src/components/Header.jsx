@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react'
 
-
+import { Link, Links } from 'react-router-dom';
 function Header() {
 
    const [btnNameReact,setbtnNameReact]=useState("login");
@@ -23,10 +23,16 @@ console.log("useeffect called")
    <div className="nav-items">  
 
     <ul>
-   <li>Home</li>
-   <li>about us</li>
-   <li>Contact us</li>
-   <li>cart</li>
+   <li >home</li>
+   <li>
+    <Link to="/about">About us</Link>
+    </li>
+   <li>
+    <Link to="/contact"> Contact us</Link>
+   </li>
+   <li>
+    <Link to="/cart">cart</Link>
+    </li>
    <button
     className='login'
      onClick={()=>{
