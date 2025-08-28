@@ -1,37 +1,41 @@
 import React from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import Header from './components/Header';
-
-export default function App() {
+import About from './components/About';
+import Contact from './components/Contact';
+import Error from './components/Error';
+const App = () => {
   return (
     <div>
-      <Header/>
-      <Body/>
-      <Footer/>
-      
+      <Header />
+      <Body />
+      <Footer />
     </div>
   );
-}
+};
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+     errorElement: <Error/>
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
 
-/*
+    path:"/Contact",
+    element:<Contact/>,
+  }
+]);
 
+// Main component to provide the router
+const Root = () => {
+  return <RouterProvider router={appRouter} />;
+};
 
-Header
-    -logo
-    -nav-items
-Body
-    -Search
-    -RestaurantContainer
-         -ReastaurntCard
-
-
-Footer
-  -CopyRight
-  -links
-  -Address
-  -Contact
-
-
-*/
+export default Root;
