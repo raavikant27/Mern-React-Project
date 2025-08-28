@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Shimmer from './Shimmer';
+<<<<<<< HEAD
 import { useParams } from 'react-router-dom';
 import { MENU_API } from '../utils/contants';
 
@@ -8,6 +9,11 @@ function RestaurantMenu() {
   const [showVegOnly, setShowVegOnly] = useState(false);
   const [error, setError] = useState(null); // Added for error handling
   const { resId } = useParams();
+=======
+
+function RestaurantMenu() {
+  const [resInfo, setResInfo] = useState(null);
+>>>>>>> 68b66c53780a8c3bcf768920a3fb98c9017cd11e
 
   useEffect(() => {
     fetchMenu();
@@ -15,9 +21,19 @@ function RestaurantMenu() {
 
   const fetchMenu = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch(MENU_API + resId);
       if (!response.ok) {
         throw new Error(`API request failed with status: ${response.status}`);
+=======
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=1087169&submitAction=ENTER"
+      );
+
+      if (!data.ok) {
+        console.log("API request failed with status:", data.status);
+        return;
+>>>>>>> 68b66c53780a8c3bcf768920a3fb98c9017cd11e
       }
       const json = await response.json();
       console.log('Fetched API JSON:', JSON.stringify(json, null, 2));
@@ -109,6 +125,7 @@ function RestaurantMenu() {
     console.log('Additional fallback itemCards:', itemCards);
   }
 
+<<<<<<< HEAD
   // Filter items based on veg-only toggle
   const filteredItems = showVegOnly
     ? itemCards.filter((item) => item?.card?.info?.isVeg === 1)
@@ -202,6 +219,27 @@ function RestaurantMenu() {
           ))}
         </ul>
       )}
+=======
+  return (
+    <div className="menu" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>{name || "Restaurant Name Not Available"}</h1>
+      <h2>{cuisines ? cuisines.join(", ") : "Cuisine Not Available"}</h2>
+      <h3>{costForTwoMessage || "Cost Not Available"}</h3>
+      <h3>Rating: {avgRatingString || "N/A"} ({totalRatingsString || "No ratings"})</h3>
+      <h3>Delivery Time: {sla?.slaString || "N/A"}</h3>
+      <h2>Menu</h2>
+      <ul>
+        {itemCards.length > 0 ? (
+          itemCards.map((item) => (
+            <li key={item.card.info.id}>
+              {item.card.info.name} - ₹{item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+            </li>
+          ))
+        ) : (
+          <li>No menu items available</li>
+        )}
+      </ul>
+>>>>>>> 68b66c53780a8c3bcf768920a3fb98c9017cd11e
     </div>
   );
 }
