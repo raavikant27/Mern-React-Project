@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
+// import "./Body.css"; // CSS file
 
 function Body() {
-  const [listOfRestaurants, setRestaurants] = useState([]); // original full list
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]); // display list
+  const [listOfRestaurants, setRestaurants] = useState([]); 
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]); 
+  const [searchText, setSearchText] = useState("");
 
+  // ⭐ Top Rated Filter
   const filterTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info?.avgRating > 4.3
@@ -14,6 +17,15 @@ function Body() {
     setFilteredRestaurants(filtered);
   };
 
+  // 🔍 Search Function
+  const handleSearch = () => {
+    const filtered = listOfRestaurants.filter((res) =>
+      res.info?.name?.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurants(filtered);
+  };
+
+  // 📡 Fetch API
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,14 +49,13 @@ function Body() {
           ?.restaurants || [];
 
       setRestaurants(fetchedRestaurants);
-      setFilteredRestaurants(fetchedRestaurants); // show same initially
+      setFilteredRestaurants(fetchedRestaurants);
     } catch (error) {
       console.log("Fetch error:", error);
     }
   };
 
-  // Show Shimmer until data is fetched
-  //conditional radering 
+  // ⏳ Shimmer Loader
   if (listOfRestaurants.length === 0 && filteredRestaurants.length === 0) {
     return <Shimmer />;
   }
@@ -52,11 +63,32 @@ function Body() {
   return (
     <ErrorBoundary>
       <div className="body">
+        
+        {/* 🔍 Search Section */}
+        <section className="search-section">
+          <h2 className="search-heading">Find Your Favorite Restaurant</h2>
+          <div className="search-bar">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Enter restaurant name..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <button className="search-btn" onClick={handleSearch}>
+              Search
+            </button>
+          </div>
+        </section>
+
+        {/* ⭐ Filter Section */}
         <div className="filter">
           <button className="filter-btn" onClick={filterTopRated}>
             Top Rated Restaurant
           </button>
         </div>
+
+        {/* 🍴 Restaurant Cards */}
         <div className="res-container">
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;

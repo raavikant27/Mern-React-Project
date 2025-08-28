@@ -38,9 +38,6 @@
   cursor: pointer;
   border: 1px solid black;
 }
-.search {
-  padding: 10px;
-}
 
 .res-logo {
   width: 100%;
@@ -71,16 +68,14 @@
   align-items: flex-start;      /* top se align */
 }
 
-.filter-btn {
 
-margin: 10px;
-cursor: pointer;
-}
 
-.shimmer-container{
+/* Shimmer */
+.shimmer-container {
   display: flex;
   flex-wrap: wrap;
 }
+
 .shimmer-card {
   margin: 20px;
   width: 200px;
@@ -88,15 +83,7 @@ cursor: pointer;
   background-color: gray;
 }
 
-
-
-
-
-
-
-
-
-
+/* Footer */
 .footer {
   background-color: #1e293b; /* dark navy */
   color: #ffffff;
@@ -126,9 +113,64 @@ cursor: pointer;
   color: #0ea5e9; /* light blue on hover */
 }
 
+/* Login Button */
 .login {
-
-
-  padding: 10 30px;
+  padding: 10px 30px;
   cursor: pointer;
+}
+
+/* ========================= */
+/* 🔍 Search Bar + Button */
+/* ========================= */
+/* Search Section */
+/* Search Section */
+.search-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* thoda space between inputs and buttons */
+}
+
+.search-input {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-btn {
+  padding: 8px 16px;
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-size: 14px;
+ 
+}
+
+.search-btn:hover {
+  background-color: #e65c00;
+}
+
+/* Top Rated Button - aligned right */
+.filter-btn {
+  padding: 8px 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.filter-btn:hover {
+  background-color: #005fa3;
 }
