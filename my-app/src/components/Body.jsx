@@ -93,7 +93,10 @@ function Body() {
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
             return (
-              <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+              <Link
+                key={restaurant.info.id} // ✅ key yaha lagana hai
+                to={"/restaurants/" + restaurant.info.id}
+              >
                 <RestaurantCard resData={restaurant} />
               </Link>
             );
@@ -103,5 +106,4 @@ function Body() {
     </ErrorBoundary>
   );
 }
-
 export default Body;
