@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
-// import "./Body.css"; // CSS file
-// import { Link } from "react-router-dom";  // ✅ Link की ज़रूरत नहीं रही
+import { Link } from "react-router-dom"; // ✅ Link ka import zaroori hai
 
 function Body() {
   const [listOfRestaurants, setRestaurants] = useState([]);
@@ -93,19 +92,12 @@ function Body() {
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
             return (
-<<<<<<< HEAD
               <Link
-                key={restaurant.info.id} // ✅ key yaha lagana hai
+                key={restaurant.info.id} // ✅ unique key
                 to={"/restaurants/" + restaurant.info.id}
               >
                 <RestaurantCard resData={restaurant} />
               </Link>
-=======
-              <RestaurantCard
-                key={restaurant.info.id}
-                resData={restaurant}
-              />
->>>>>>> 68b66c53780a8c3bcf768920a3fb98c9017cd11e
             );
           })}
         </div>
@@ -113,4 +105,5 @@ function Body() {
     </ErrorBoundary>
   );
 }
+
 export default Body;
