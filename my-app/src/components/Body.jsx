@@ -3,10 +3,11 @@ import RestaurantCard from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
 // import "./Body.css"; // CSS file
+import { Link } from "react-router-dom";
 
 function Body() {
-  const [listOfRestaurants, setRestaurants] = useState([]); 
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]); 
+  const [listOfRestaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   // ⭐ Top Rated Filter
@@ -63,7 +64,6 @@ function Body() {
   return (
     <ErrorBoundary>
       <div className="body">
-        
         {/* 🔍 Search Section */}
         <section className="search-section">
           <h2 className="search-heading">Find Your Favorite Restaurant</h2>
@@ -93,7 +93,9 @@ function Body() {
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
             return (
-              <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+              <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+                <RestaurantCard resData={restaurant} />
+              </Link>
             );
           })}
         </div>
