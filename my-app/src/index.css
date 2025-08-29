@@ -174,3 +174,9 @@
 .filter-btn:hover {
   background-color: #005fa3;
 }
+.user-card{
+
+
+  padding :10px;
+  border: solid black;
+}

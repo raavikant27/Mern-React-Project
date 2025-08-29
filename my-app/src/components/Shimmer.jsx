@@ -27,3 +27,19 @@ function Shimmer() {
 }
 
 export default Shimmer
+
+export const RestaurantMenuShimmer = () => {
+  return (
+    <div className="shimmer-menu">
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+      <div className="shimmer-card"></div>
+    </div>
+  );
+};
