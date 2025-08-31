@@ -25,3 +25,10 @@ and all the service combimne to make big app service like ui, atuh  these are co
 pag-lpaod -api -render.
 // load -render the ui nd now  api call.nd render the data 
 
+#### 
+ - in functional components it kind of function which return some jsx.
+ - and  classbased Components 
+  first u make the class usiing class keyowrds after creating name of the components extend. react.components.nd this class has render method  return some piece of jsx. and exports a class.
+  ###
+  - why er write supper class in classbased components.
+  -

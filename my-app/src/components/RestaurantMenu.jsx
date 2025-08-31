@@ -1,47 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { MENU_API } from "../utils/contants";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 function RestaurantMenu() {
-  const [resInfo, setResInfo] = useState(null);
+  
   const [showVegOnly, setShowVegOnly] = useState(false);
   const [error, setError] = useState(null);
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchMenu();
-  }, [resId]);
+  const resInfo =useRestaurantMenu(resId);
 
-  const fetchMenu = async () => {
-    try {
-      const response = await fetch(MENU_API + resId);
-      if (!response.ok) {
-        throw new Error(`API request failed with status: ${response.status}`);
-      }
-      const json = await response.json();
-      console.log("Fetched API JSON:", json);
-      if (!json.data) {
-        throw new Error("No data found in API response");
-      }
-      setResInfo(json.data);
-      setError(null);
-    } catch (error) {
-      console.error("Fetch error:", error);
-      setError(error.message);
-      setResInfo(null);
-    }
-  };
 
-  // Error UI
-  if (error) {
-    return (
-      <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <h2>Error</h2>
-        <p style={{ color: "red" }}>{error}</p>
-      </div>
-    );
-  }
+
 
   // Loader
   if (resInfo === null) {
