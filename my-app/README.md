@@ -38,5 +38,8 @@ pag-lpaod -api -render.
    2- modularity means u break down the code into diffrennt-2 part  so that your code become more maintainable .
    3-if fallow the code in single responsibilty nd modular fasion so u will get result reuable the code nd your become maintanable  nd your testable if fallow u will get .
 
-   
+   ####
+   1-chunking,code splitting, dynamic bundling ,
+   lazy- loading
+
 

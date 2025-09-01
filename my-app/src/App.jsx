@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -8,7 +8,10 @@ import Contact from './components/Contact';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
 import Cart from './components/Cart';
-import Login from './components/Login'; // ✅ Missing import added
+import Login from './components/Login'; // ✅ Correct import
+
+// Lazy load Grocery
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const App = () => {
   return (
@@ -36,6 +39,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>Loading..</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
       {
         path: "/restaurants/:resId",

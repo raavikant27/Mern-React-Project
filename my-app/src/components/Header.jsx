@@ -34,6 +34,9 @@ function Header() {
             <Link to="/contact">Contact us</Link>
           </li>
           <li>
+            <Link to="/Grocery">Grocery</Link>
+          </li>
+          <li>
             <Link to="/cart">Cart</Link>
           </li>
           <button
