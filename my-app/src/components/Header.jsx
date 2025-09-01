@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Corrected import, removed 'Links'
-
+import useOnlinestatus from '../utils/useOnlinestatus';
 function Header() {
   const [btnNameReact, setbtnNameReact] = useState("Login");
-
+  const onlinestatus=useOnlinestatus ();
   // Correct useEffect with dependency array
   useEffect(() => {
     console.log("useEffect called");
   }, [btnNameReact]);
+
+
 
   return (
     <div className="header">
@@ -17,6 +19,11 @@ function Header() {
       
       <div className="nav-items">
         <ul>
+
+
+            <li>
+  Online Status: {onlinestatus ? "green-Online" : "red-Offline"}
+            </li>
           <li>
             <Link to="/">Home</Link>
           </li>

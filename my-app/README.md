@@ -32,3 +32,11 @@ pag-lpaod -api -render.
   ###
   - why er write supper class in classbased components.
   -
+### custom hook
+  1-  what does mean Single Responsibilty Principle
+   -  like take example footer nd header thier is one responsibilty to respnse the header .
+   2- modularity means u break down the code into diffrennt-2 part  so that your code become more maintainable .
+   3-if fallow the code in single responsibilty nd modular fasion so u will get result reuable the code nd your become maintanable  nd your testable if fallow u will get .
+
+   
+

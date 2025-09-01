@@ -3,7 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom"; // ✅ Link ka import zaroori hai
-
+import useOnlinestatus from "../utils/useOnlinestatus";
 function Body() {
   const [listOfRestaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -54,6 +54,9 @@ function Body() {
       console.log("Fetch error:", error);
     }
   };
+//chack the user is online or not
+const onlinestatus=useOnlinestatus();
+if(onlinestatus ===false) return <h1>looks like you're offline</h1>
 
   // ⏳ Shimmer Loader
   if (listOfRestaurants.length === 0 && filteredRestaurants.length === 0) {
