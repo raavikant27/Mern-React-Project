@@ -7,7 +7,7 @@ function RestaurantCard({ resData }) {
     return null;
   }
 
-  const { name, cuisines, avgRating, cloudinaryImageId } = resData.info;
+  const { name, cuisines, avgRating, costForTwo,deliveryTime,cloudinaryImageId } = resData.info;
 
   // Handle cloudinaryImageId to construct the correct URL
   let imageUrl = "";
@@ -25,18 +25,20 @@ function RestaurantCard({ resData }) {
   const fallbackImage = "https://via.placeholder.com/190x120?text=No+Image";
 
   return (
-    <div className="res-card">
+    <div className=" m-4 p-4 w-[250px] rounded-lg bg-gray-50 hover:bg-gray-400">
       <img
-        className="res-logo"
+        className="rounded-lg"
         alt={name || "Restaurant Image"}
         src={imageUrl || fallbackImage} // Use fallback if imageUrl is empty
         onError={(e) => { e.target.src = fallbackImage; }} // Fallback on load error
-        width="200"
+        
       />
-      <h3>{name}</h3>
+      <h3 className="font-bold py-4 text-lg">{name}</h3>
       <h4>{cuisines.join(", ")}</h4>
       <h4>{avgRating} Stars</h4>
-      <h4>{cloudinaryImageId}</h4>
+      <h4>{costForTwo}</h4>
+      <h4>{deliveryTime}</h4>
+      {/* <h4>{cloudinaryImageId}</h4> */}
     </div>
   );
 }

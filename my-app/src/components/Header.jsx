@@ -12,34 +12,34 @@ function Header() {
 
 
   return (
-    <div className="flex">
+    <div className=" p-5 flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-100">
       <div className='logo-container'>
-        <img className='w-8' src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png" />
+        <img className='w-60' src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png" />
       </div>
       
-      <div className="nav-items">
-        <ul>
+      <div className="flex items-center">
+        <ul className='flex p-4 m-4'>
 
 
-            <li>
+            <li className='px-4'>
   Online Status: {onlinestatus ? "green-Online" : "red-Offline"}
             </li>
-          <li>
+          <li className='px-4'>
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className='px-4'>
             <Link to="/about">About us</Link>
           </li>
-          <li>
+          <li className='px-4'>
             <Link to="/contact">Contact us</Link>
           </li>
-          <li>
+          <li className='px-4'>
             <Link to="/Grocery">Grocery</Link>
           </li>
-          <li>
+          <li className='px-4'>
             <Link to="/cart">Cart</Link>
           </li>
-          <button
+          <button 
             className='login'
             onClick={() => {
               setbtnNameReact(btnNameReact === "Login" ? "Logout" : "Login");
