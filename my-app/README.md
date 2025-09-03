@@ -40,6 +40,16 @@ pag-lpaod -api -render.
 
    ####
    1-chunking,code splitting, dynamic bundling ,
-   lazy- loading
+   lazy- loading- own demand  loading
+
+   #####
+   framework tailwind  css.
+   styling way- 
+   1-styles component
+   2-materila ui- 
+   3- chakra ui
+   4- ant design
+   ### tailwind css
+   1- tailwind 
 
 

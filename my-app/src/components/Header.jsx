@@ -12,9 +12,9 @@ function Header() {
 
 
   return (
-    <div className="header">
+    <div className="flex">
       <div className='logo-container'>
-        <img className='logo' src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png" />
+        <img className='w-8' src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png" />
       </div>
       
       <div className="nav-items">
