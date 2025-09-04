@@ -38,6 +38,7 @@ function RestaurantCard({ resData }) {
 
 export const withPromtedLable = (RestaurantCard) => {
   return (props) => {
+    console.log("Rendering Promoted Card with props:", props); // Debug HOC
     return (
       <div>
         <label className="bg-yellow-300 text-black font-semibold p-1 rounded">Promoted</label>

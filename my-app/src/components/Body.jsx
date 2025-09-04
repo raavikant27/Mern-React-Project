@@ -11,7 +11,7 @@ function Body() {
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromtedLable(RestaurantCard);
-
+console.log("Body Rendered",listOfRestaurants);
   const filterTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info?.avgRating > 4.3
@@ -42,11 +42,16 @@ function Body() {
       }
 
       const json = await response.json();
-      console.log("Fetched API JSON:", json);
+      console.log("Fetched API JSON:", json); // Debug full response
 
       const fetchedRestaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
+
+      // Debug each restaurant's info
+      fetchedRestaurants.forEach((restaurant) => {
+        console.log("Restaurant Info:", restaurant.info);
+      });
 
       setRestaurants(fetchedRestaurants);
       setFilteredRestaurants(fetchedRestaurants);
@@ -90,12 +95,15 @@ function Body() {
         <div className="flex flex-wrap">
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
+            console.log("Restaurant Data:", restaurant.info); // Debug each restaurant
+            // Temporarily test with a known field or force promoted
+            const isPromoted = restaurant.info.promoted || false; // Default to false if undefined
             return (
               <Link
                 key={restaurant.info.id}
                 to={`/restaurants/${restaurant.info.id}`}
               >
-                {restaurant.info.promoted ? (
+                {isPromoted ? (
                   <RestaurantCardPromoted resData={restaurant} />
                 ) : (
                   <RestaurantCard resData={restaurant} />
