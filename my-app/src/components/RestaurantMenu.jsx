@@ -3,9 +3,8 @@ import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { SiPanasonic } from "react-icons/si";
-import Item from "./Item"; // Import the new Item component
+import Item from "./Item";
 
-// Reusable Components
 const RestaurantInfo = ({ info }) => (
   <div className="text-center">
     <h1 className="font-bold my-6 text-2xl">{info.name || "Restaurant Name Not Available"}</h1>
@@ -24,34 +23,35 @@ const CategoryList = ({ categories }) => {
   const handleCategoryClick = (index) => {
     setExpandedCategories((prev) => ({
       ...prev,
-      [index]: !prev[index], // Toggle the specific category's expanded state
+      [index]: !prev[index],
     }));
   };
 
   return (
-    <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4">
-      <h2 className="text-xl font-semibold mb-4">Categories</h2>
+    <div className="w-6/12 mx-auto my-6 bg-white shadow-xl p-6 rounded-lg border border-gray-200">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Categories</h2>
       {categories.length === 0 ? (
-        <p>No categories available.</p>
+        <p className="text-gray-600">No categories available.</p>
       ) : (
         <ul>
-          {/* Start of all categories loop */}
           {categories.map((category, index) => {
             const itemCount = category?.itemCards?.length || 0;
             const isExpanded = expandedCategories[index];
             return (
               <li
                 key={index}
-                className="mb-4 text-lg cursor-pointer p-2 bg-gray-200 rounded flex items-center justify-between"
+                className="mb-4 cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200"
                 onClick={() => handleCategoryClick(index)}
               >
-                <span className="font-medium text-lg">
-                  {category.title || `Category ${index + 1}`} ({itemCount} items)
-                </span>
-                <span className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}>
-                  {isExpanded ? "-" : "+"}
-                </span>
-                {expandedCategories[index] && category?.itemCards && (
+                <div className="flex items-center justify-between text-lg font-semibold text-gray-700">
+                  <span>
+                    {category.title || `Category ${index + 1}`} ({itemCount} items)
+                  </span>
+                  <span className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}>
+                    {isExpanded ? "-" : "+"}
+                  </span>
+                </div>
+                {isExpanded && category?.itemCards && (
                   <ul className="ml-5 mt-2">
                     {category.itemCards.map((item, itemIndex) => (
                       <Item
@@ -64,7 +64,6 @@ const CategoryList = ({ categories }) => {
               </li>
             );
           })}
-          {/* End of all categories loop */}
         </ul>
       )}
     </div>
@@ -92,25 +91,23 @@ const extractCategories = (cards) => {
 };
 
 function RestaurantMenu() {
-  const [showVegOnly, setShowVegOnly] = useState(false); // Kept for potential future use
+  const [showVegOnly, setShowVegOnly] = useState(false);
   const [error, setError] = useState(null);
   const { resId } = useParams();
 
   const resInfo = useRestaurantMenu(resId);
-  console.log("Raw ResInfo from Hook:", resInfo); // Log raw data
+  console.log("Raw ResInfo from Hook:", resInfo);
 
-  // Loader
   if (resInfo === null) {
     return <Shimmer />;
   }
 
-  // Extract data
   const infoCard = extractRestaurantInfo(resInfo.cards);
   const categories = extractCategories(resInfo.cards);
-  console.log("Extracted Categories:", categories); // Log categories
+  console.log("Extracted Categories:", categories);
 
   return (
-    <div className="p-5 font-sans">
+    <div className="p-6 font-sans bg-gray-50 min-h-screen">
       <RestaurantInfo info={infoCard} />
       <CategoryList categories={categories} />
     </div>
