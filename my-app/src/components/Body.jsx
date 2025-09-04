@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromtedLable } from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -10,7 +10,8 @@ function Body() {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  // Top Rated Filter
+  const RestaurantCardPromoted = withPromtedLable(RestaurantCard);
+
   const filterTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info?.avgRating > 4.3
@@ -18,7 +19,6 @@ function Body() {
     setFilteredRestaurants(filtered);
   };
 
-  // Search Function
   const handleSearch = () => {
     const filtered = listOfRestaurants.filter((res) =>
       res.info?.name?.toLowerCase().includes(searchText.toLowerCase())
@@ -26,7 +26,6 @@ function Body() {
     setFilteredRestaurants(filtered);
   };
 
-  // Fetch API
   useEffect(() => {
     fetchData();
   }, []);
@@ -56,11 +55,9 @@ function Body() {
     }
   };
 
-  // Check online status
   const onlinestatus = useOnlinestatus();
   if (onlinestatus === false) return <h1>Looks like you're offline</h1>;
 
-  // Shimmer Loader
   if (listOfRestaurants.length === 0 && filteredRestaurants.length === 0) {
     return <Shimmer />;
   }
@@ -68,12 +65,8 @@ function Body() {
   return (
     <ErrorBoundary>
       <div className="body p-4">
-        {/* Heading */}
         <h2 className="text-2xl font-semibold mb-4">Find Your Favorite Restaurant</h2>
-
-        {/* Search + Filter Section */}
         <div className="flex flex-wrap items-center gap-4 mb-6">
-          {/* Search Box */}
           <input
             type="text"
             className="w-64 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -81,16 +74,12 @@ function Body() {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
-
-          {/* Search Button */}
           <button
-            className="px-4 py-2 bg-green-400 m-4 text-white rounded-lg "
+            className="px-4 py-2 bg-green-400 m-4 text-white rounded-lg"
             onClick={handleSearch}
           >
             Search
           </button>
-
-          {/* Top Rated Filter Button */}
           <button
             className="px-4 py-2 bg-gray-100 rounded-lg"
             onClick={filterTopRated}
@@ -98,17 +87,19 @@ function Body() {
             Top Rated Restaurants
           </button>
         </div>
-
-        {/* Restaurant Cards */}
-        <div className=" flex flex-wrap ">
+        <div className="flex flex-wrap">
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
             return (
               <Link
                 key={restaurant.info.id}
-                to={"/restaurants/" + restaurant.info.id}
+                to={`/restaurants/${restaurant.info.id}`}
               >
-                <RestaurantCard resData={restaurant} />
+                {restaurant.info.promoted ? (
+                  <RestaurantCardPromoted resData={restaurant} />
+                ) : (
+                  <RestaurantCard resData={restaurant} />
+                )}
               </Link>
             );
           })}
