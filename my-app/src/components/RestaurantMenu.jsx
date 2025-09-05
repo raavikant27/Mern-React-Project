@@ -18,7 +18,7 @@ const RestaurantInfo = ({ info }) => (
 );
 
 const CategoryList = ({ categories }) => {
-  const [expandedCategories, setExpandedCategories] = useState({}); // State to track multiple expanded categories
+  const [expandedCategories, setExpandedCategories] = useState({});
 
   const handleCategoryClick = (index) => {
     setExpandedCategories((prev) => ({
@@ -28,7 +28,7 @@ const CategoryList = ({ categories }) => {
   };
 
   return (
-    <div className="w-6/12 mx-auto my-6 bg-white shadow-xl p-6 rounded-lg border border-gray-200">
+    <div className="w-6/12 mx-auto my-6 bg-white shadow-xl p-6 rounded-lg border border-gray-200 pt-24">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Categories</h2>
       {categories.length === 0 ? (
         <p className="text-gray-600">No categories available.</p>
@@ -57,6 +57,7 @@ const CategoryList = ({ categories }) => {
                       <Item
                         key={item?.card?.info?.id || `item-${itemIndex}`}
                         item={item}
+                        isFirstItem={itemIndex === 0}
                       />
                     ))}
                   </ul>
@@ -96,9 +97,10 @@ function RestaurantMenu() {
   const { resId } = useParams();
 
   const resInfo = useRestaurantMenu(resId);
-  console.log("Raw ResInfo from Hook:", resInfo);
+  console.log("Raw ResInfo from Hook:", resInfo); // Debug log
 
-  if (resInfo === null) {
+  if (resInfo === null || resInfo === undefined) { // Added undefined check
+    console.log("Rendering Shimmer because resInfo is:", resInfo); // Debug log
     return <Shimmer />;
   }
 
@@ -107,7 +109,7 @@ function RestaurantMenu() {
   console.log("Extracted Categories:", categories);
 
   return (
-    <div className="p-6 font-sans bg-gray-50 min-h-screen">
+    <div className="p-6 font-sans bg-gray-50 min-h-screen pt-32">
       <RestaurantInfo info={infoCard} />
       <CategoryList categories={categories} />
     </div>

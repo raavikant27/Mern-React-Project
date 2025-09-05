@@ -1,56 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Corrected import, removed 'Links'
+import { Link } from 'react-router-dom';
 import useOnlinestatus from '../utils/useOnlinestatus';
+
 function Header() {
   const [btnNameReact, setbtnNameReact] = useState("Login");
-  const onlinestatus=useOnlinestatus ();
-  // Correct useEffect with dependency array
+  const onlineStatus = useOnlinestatus();
+
   useEffect(() => {
     console.log("useEffect called");
   }, [btnNameReact]);
-  
-
 
   return (
-    <div className=" p-5 flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-100">
-      <div className='logo-container'>
-        <img className='w-60' src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png" />
+    <header className="bg-gradient-to-r from-gray-100 to-gray-200 shadow-xl sticky top-0 z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between py-4">
+          <div className="logo-container">
+            <img
+              className="h-24 w-auto object-contain"
+              src="https://static.vecteezy.com/system/resources/previews/014/971/638/original/food-logo-design-template-restaurant-free-png.png"
+              alt="Food Logo"
+            />
+          </div>
+          <div className="flex items-center space-x-6">
+            <ul className="flex items-center space-x-6">
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                Online Status: <span className={onlineStatus ? "text-green-600" : "text-red-600"}>
+                  {onlineStatus ? "Online" : "Offline"}
+                </span>
+              </li>
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <Link to="/">Home</Link>
+              </li>
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <Link to="/about">About Us</Link>
+              </li>
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <Link to="/contact">Contact Us</Link>
+              </li>
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <Link to="/Grocery">Grocery</Link>
+              </li>
+              <li className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <Link to="/cart">Cart</Link>
+              </li>
+            </ul>
+            <button
+              className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => {
+                setbtnNameReact(btnNameReact === "Login" ? "Logout" : "Login");
+                console.log(btnNameReact);
+              }}
+            >
+              {btnNameReact}
+            </button>
+          </div>
+        </div>
       </div>
-      
-      <div className="flex items-center">
-        <ul className='flex p-4 m-4'>
-
-
-            <li className='px-4'>
-  Online Status: {onlinestatus ? "green-Online" : "red-Offline"}
-            </li>
-          <li className='px-4'>
-            <Link to="/">Home</Link>
-          </li>
-          <li className='px-4'>
-            <Link to="/about">About us</Link>
-          </li>
-          <li className='px-4'>
-            <Link to="/contact">Contact us</Link>
-          </li>
-          <li className='px-4'>
-            <Link to="/Grocery">Grocery</Link>
-          </li>
-          <li className='px-4'>
-            <Link to="/cart">Cart</Link>
-          </li>
-          <button 
-            className='login'
-            onClick={() => {
-              setbtnNameReact(btnNameReact === "Login" ? "Logout" : "Login");
-              console.log(btnNameReact);
-            }}
-          >
-            {btnNameReact}
-          </button>
-        </ul>
-      </div>
-    </div>
+    </header>
   );
 }
 
