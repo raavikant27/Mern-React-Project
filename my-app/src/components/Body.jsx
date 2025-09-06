@@ -12,8 +12,6 @@ function Body() {
 
   const RestaurantCardPromoted = withPromtedLable(RestaurantCard);
 
-  console.log("Body Rendered", listOfRestaurants); // Debug initial render
-
   const filterTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info?.avgRating > 4.3
@@ -39,27 +37,22 @@ function Body() {
       );
 
       if (!response.ok) {
-        console.log("API request failed with status:", response.status);
         setRestaurants([]); // Set to empty array on failure
         setFilteredRestaurants([]);
         return;
       }
 
       const json = await response.json();
-      console.log("Fetched API JSON:", json); // Debug full response
 
       const fetchedRestaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
 
-      fetchedRestaurants.forEach((restaurant) => {
-        console.log("Restaurant Info:", restaurant.info);
-      });
+      fetchedRestaurants.forEach((restaurant) => {});
 
       setRestaurants(fetchedRestaurants);
       setFilteredRestaurants(fetchedRestaurants);
     } catch (error) {
-      console.log("Fetch error:", error);
       setRestaurants([]); // Set to empty array on error
       setFilteredRestaurants([]);
     }
@@ -70,7 +63,6 @@ function Body() {
 
   // Enhanced condition to show shimmer during loading
   if (listOfRestaurants.length === 0) {
-    console.log("Rendering Shimmer because listOfRestaurants is empty");
     return <Shimmer />;
   }
 
@@ -102,7 +94,6 @@ function Body() {
         <div className="flex flex-wrap">
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
-            console.log("Restaurant Data:", restaurant.info);
             const isPromoted = restaurant.info.promoted || false;
             return (
               <Link
