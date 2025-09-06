@@ -67,7 +67,7 @@ const Item = ({ item }) => {
                 className="w-28 h-28 object-cover rounded" // Updated fallback size
               />
             )}
-            <button className="absolute top-0 right-0 p-1 bg-white shadow-lg m-1 text-sm rounded">
+            <button className="Relative p-2 mx-16 rounded-lg bg-black text-white shadow-lg">
               add+
             </button>
           </div>

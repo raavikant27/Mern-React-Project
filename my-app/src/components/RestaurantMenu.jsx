@@ -3,75 +3,28 @@ import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { SiPanasonic } from "react-icons/si";
+import RestaurantCategory from "./RestaurantCategory"; // Import new component
 import Item from "./Item";
 
+// Component to display restaurant information
 const RestaurantInfo = ({ info }) => (
   <div className="text-center">
+    {/* Display restaurant name with fallback */}
     <h1 className="font-bold my-6 text-2xl">{info.name || "Restaurant Name Not Available"}</h1>
+    {/* Display cuisines with fallback, joining array into a string */}
     <h2 className="font-bold text-lg">{info.cuisines ? info.cuisines.join(", ") : "Cuisine Not Available"}</h2>
+    {/* Display cost for two with fallback */}
     <h3>{info.costForTwoMessage || "Cost Not Available"}</h3>
+    {/* Display rating and total ratings with fallback */}
     <h3>
       Rating: {info.avgRatingString || "N/A"} ({info.totalRatingsString || "No ratings"})
     </h3>
+    {/* Display delivery time with fallback */}
     <h3>Delivery Time: {info.sla?.slaString || "N/A"}</h3>
   </div>
 );
 
-const CategoryList = ({ categories }) => {
-  const [expandedCategories, setExpandedCategories] = useState({});
-
-  const handleCategoryClick = (index) => {
-    setExpandedCategories((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
-
-  return (
-    <div className="w-6/12 mx-auto my-6 bg-white shadow-xl p-6 rounded-lg border border-gray-200 pt-24">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Categories</h2>
-      {categories.length === 0 ? (
-        <p className="text-gray-600">No categories available.</p>
-      ) : (
-        <ul>
-          {categories.map((category, index) => {
-            const itemCount = category?.itemCards?.length || 0;
-            const isExpanded = expandedCategories[index];
-            return (
-              <li
-                key={index}
-                className="mb-4 cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200"
-                onClick={() => handleCategoryClick(index)}
-              >
-                <div className="flex items-center justify-between text-lg font-semibold text-gray-700">
-                  <span>
-                    {category.title || `Category ${index + 1}`} ({itemCount} items)
-                  </span>
-                  <span className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}>
-                    {isExpanded ? "-" : "+"}
-                  </span>
-                </div>
-                {isExpanded && category?.itemCards && (
-                  <ul className="ml-5 mt-2">
-                    {category.itemCards.map((item, itemIndex) => (
-                      <Item
-                        key={item?.card?.info?.id || `item-${itemIndex}`}
-                        item={item}
-                        isFirstItem={itemIndex === 0}
-                      />
-                    ))}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
-};
-
-// Utility Functions
+// Utility function to extract restaurant info from API response
 const extractRestaurantInfo = (cards) => {
   return (
     cards?.find(
@@ -82,6 +35,7 @@ const extractRestaurantInfo = (cards) => {
   );
 };
 
+// Utility function to extract category data from API response
 const extractCategories = (cards) => {
   if (!cards) return [];
   const menuCard = cards.find((c) => c.groupedCard);
@@ -91,15 +45,17 @@ const extractCategories = (cards) => {
     .map((card) => card.card.card);
 };
 
-function RestaurantMenu() {
+// Main RestaurantMenu component
+function RestaurantMenu({ isDarkMode }) { // Added isDarkMode prop for theme support
   const [showVegOnly, setShowVegOnly] = useState(false);
   const [error, setError] = useState(null);
   const { resId } = useParams();
 
+  // Fetch restaurant menu data using custom hook
   const resInfo = useRestaurantMenu(resId);
   console.log("Raw ResInfo from Hook:", resInfo); // Debug log
 
-  if (resInfo === null || resInfo === undefined) { // Added undefined check
+  if (resInfo === null || resInfo === undefined) { // Check for loading state
     console.log("Rendering Shimmer because resInfo is:", resInfo); // Debug log
     return <Shimmer />;
   }
@@ -109,9 +65,9 @@ function RestaurantMenu() {
   console.log("Extracted Categories:", categories);
 
   return (
-    <div className="p-6 font-sans bg-gray-50 min-h-screen pt-32">
+    <div className={`p-6 font-sans min-h-screen pt-32 ${isDarkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-900'}`}>
       <RestaurantInfo info={infoCard} />
-      <CategoryList categories={categories} />
+      <RestaurantCategory categories={categories} isDarkMode={isDarkMode} /> {/* Use new component */}
     </div>
   );
 }
