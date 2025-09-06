@@ -1,27 +1,11 @@
-import React from "react";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import React from 'react';
 
-function Footer() {
+function Footer({ isDarkMode }) {
+  const footerClass = `py-4 ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'}`;
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>© {new Date().getFullYear()} RadiantNeuron. All rights reserved.</p>
-        <div className="footer-links">
-          <a
-            href="https://www.linkedin.com/in/ravikant-singh-2100b2266/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin size={28} />
-          </a>
-          <a
-            href="https://github.com/raavikant27"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGithub size={28} />
-          </a>
-        </div>
+    <footer className={footerClass}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p>&copy; 2025 Food Delivery App. All rights reserved.</p>
       </div>
     </footer>
   );

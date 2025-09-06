@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Item = ({ item, isFirstItem }) => {
-  const [isExpanded, setIsExpanded] = useState(isFirstItem); // Default to true for first item
+const Item = ({ item }) => {
   const [imageLoaded, setImageLoaded] = useState(false); // Track image load state
 
   const getItemPrice = (item) => {
@@ -35,10 +34,6 @@ const Item = ({ item, isFirstItem }) => {
     return url;
   };
 
-  const handleItemClick = () => {
-    setIsExpanded((prev) => !prev);
-  };
-
   // Handle image load error
   const handleImageError = (e) => {
     setImageLoaded(false);
@@ -51,32 +46,33 @@ const Item = ({ item, isFirstItem }) => {
   }, [item]);
 
   return (
-    // List item for each menu item
+    // List item with all content in a single line
     <li
-      className="p-2 m-2 border-gray-200 border-b-2 text-left flex items-start justify-between w-full"
-      onClick={handleItemClick}
+      className="p-4 m-4 border-b-2 border-gray-600 text-left flex items-center justify-between w-full"
     >
-      <div className="w-40 p-4 flex-shrink-0 relative">
-        <div className="absolute">
-          <img
-            src={getImageUrl(item)}
-            alt={item?.card?.info?.name || "Item Image"}
-            className={`w-20 h-20 object-cover rounded ${imageLoaded ? "" : "hidden"}`}
-            onLoad={() => setImageLoaded(true)}
-            onError={handleImageError}
-          />
-          {!imageLoaded && (
+      <div className="flex items-center w-full">
+        <div className="w-48 p-4 flex-shrink-0 relative"> {/* Increased w-40 to w-48 to accommodate larger image */}
+          <div className="relative">
             <img
-              src="https://via.placeholder.com/80"
-              alt="Placeholder"
-              className="w-20 h-20 object-cover rounded"
+              src={getImageUrl(item)}
+              alt={item?.card?.info?.name || "Item Image"}
+              className={`w-28 h-28 object-cover rounded ${imageLoaded ? "" : "hidden"}`} // Increased w-20 h-20 to w-28 h-28
+              onLoad={() => setImageLoaded(true)}
+              onError={handleImageError}
             />
-          )}
-          <button className="p-1 bg-white shadow-lg m-auto mt-1 block text-sm">
-            add+
-          </button>
+            {!imageLoaded && (
+              <img
+                src="https://via.placeholder.com/80"
+                alt="Placeholder"
+                className="w-28 h-28 object-cover rounded" // Updated fallback size
+              />
+            )}
+            <button className="absolute top-0 right-0 p-1 bg-white shadow-lg m-1 text-sm rounded">
+              add+
+            </button>
+          </div>
         </div>
-        <div className="w-9/12 ml-24">
+        <div className="flex-1 ml-4">
           <span className="py-1 block font-medium text-gray-900">
             {item?.card?.info?.name || "No Name"}
           </span>
@@ -86,18 +82,11 @@ const Item = ({ item, isFirstItem }) => {
           <span className="block text-yellow-500 text-sm">
             ★ {getRating(item)}
           </span>
-        </div>
-      </div>
-      <span className={`transition-transform ${isExpanded ? "rotate-90" : ""} text-gray-700 font-bold text-lg ml-2 self-start`}>
-        {isExpanded ? "-" : "+"}
-      </span>
-      {isExpanded && (
-        <div className="ml-6 mt-2 w-full">
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-gray-700 inline-block ml-4">
             {item?.card?.info?.description || "No description available"}
           </p>
         </div>
-      )}
+      </div>
     </li>
   );
 };

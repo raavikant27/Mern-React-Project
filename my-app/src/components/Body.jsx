@@ -11,7 +11,9 @@ function Body() {
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromtedLable(RestaurantCard);
-console.log("Body Rendered",listOfRestaurants);
+
+  console.log("Body Rendered", listOfRestaurants); // Debug initial render
+
   const filterTopRated = () => {
     const filtered = listOfRestaurants.filter(
       (res) => res.info?.avgRating > 4.3
@@ -38,6 +40,8 @@ console.log("Body Rendered",listOfRestaurants);
 
       if (!response.ok) {
         console.log("API request failed with status:", response.status);
+        setRestaurants([]); // Set to empty array on failure
+        setFilteredRestaurants([]);
         return;
       }
 
@@ -48,7 +52,6 @@ console.log("Body Rendered",listOfRestaurants);
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
 
-      // Debug each restaurant's info
       fetchedRestaurants.forEach((restaurant) => {
         console.log("Restaurant Info:", restaurant.info);
       });
@@ -57,13 +60,17 @@ console.log("Body Rendered",listOfRestaurants);
       setFilteredRestaurants(fetchedRestaurants);
     } catch (error) {
       console.log("Fetch error:", error);
+      setRestaurants([]); // Set to empty array on error
+      setFilteredRestaurants([]);
     }
   };
 
   const onlinestatus = useOnlinestatus();
   if (onlinestatus === false) return <h1>Looks like you're offline</h1>;
 
-  if (listOfRestaurants.length === 0 && filteredRestaurants.length === 0) {
+  // Enhanced condition to show shimmer during loading
+  if (listOfRestaurants.length === 0) {
+    console.log("Rendering Shimmer because listOfRestaurants is empty");
     return <Shimmer />;
   }
 
@@ -95,9 +102,8 @@ console.log("Body Rendered",listOfRestaurants);
         <div className="flex flex-wrap">
           {filteredRestaurants.map((restaurant) => {
             if (!restaurant?.info?.id) return null;
-            console.log("Restaurant Data:", restaurant.info); // Debug each restaurant
-            // Temporarily test with a known field or force promoted
-            const isPromoted = restaurant.info.promoted || false; // Default to false if undefined
+            console.log("Restaurant Data:", restaurant.info);
+            const isPromoted = restaurant.info.promoted || false;
             return (
               <Link
                 key={restaurant.info.id}

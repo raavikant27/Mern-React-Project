@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -8,18 +8,26 @@ import Contact from './components/Contact';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
 import Cart from './components/Cart';
-import Login from './components/Login'; // ✅ Correct import
+import Login from './components/Login';
 
 // Lazy load Grocery
 const Grocery = lazy(() => import("./components/Grocery"));
 
-const App = () => {
+const App = ({ isDarkMode, setIsDarkMode }) => {
+  // Apply dark mode class to the document body
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
   return (
-    <div className="">
-     
-      <Header />
+    <div className="min-h-screen">
+      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Outlet />
-      <Footer />
+      <Footer isDarkMode={isDarkMode} /> {/* Ensure prop is passed */}
     </div>
   );
 };
@@ -27,7 +35,7 @@ const App = () => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App isDarkMode={false} setIsDarkMode={() => {}} />, // Initial state, will be overridden by Root
     children: [
       {
         path: "/",
@@ -66,9 +74,17 @@ const appRouter = createBrowserRouter([
   },
 ]);
 
-// Main component to provide the router
+// Main component to provide the router and manage theme state
 const Root = () => {
-  return <RouterProvider router={appRouter} />;
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  return (
+    <RouterProvider
+      router={appRouter}
+      isDarkMode={isDarkMode}
+      setIsDarkMode={setIsDarkMode}
+    />
+  );
 };
 
 export default Root;
