@@ -37,8 +37,9 @@ const RestaurantCategory = ({ categories, isDarkMode }) => {
         // Show a message if no categories are available
         <p className="text-gray-600">No categories available.</p>
       ) : (
-        // Step 6: If categories exist, create an unordered list to display them
+        // Step 6: If categories exist, create an unordered list to display them nd it controlled by parents thatss why it is controll components 
         <ul>
+          //
           {categories.map((category, index) => {
             // Count the number of items in the current category, default to 0 if undefined
             const numberOfItems = category?.itemCards?.length || 0;
@@ -97,3 +98,4 @@ const RestaurantCategory = ({ categories, isDarkMode }) => {
 
 // Export the component so it can be used in other files
 export default RestaurantCategory;
+//liefting stateup the react

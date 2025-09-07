@@ -39,3 +39,9 @@ class UserClass extends React.Component {
 }
 
 export default UserClass;
+
+
+///Props driling -
+//context api avoid the props driling 
+// - it is global context which can anybody can accees thease
+//  

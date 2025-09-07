@@ -67,17 +67,8 @@ function Header() {
                   {btnNameReact}
                 </button>
               </li>
-              <li>
-                <button
-                  className={`px-2 py-1 text-sm font-medium rounded-md focus:outline-none focus:ring-2 ${isDarkMode ? 'bg-gray-600 text-white hover:bg-gray-500 focus:ring-gray-400' : 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400'}`}
-                  onClick={() => setIsDarkMode(!isDarkMode)}
-                >
-                  {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-                </button>
-              </li>
-              <li className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} px-4`}>
-                {loggedInUser || "Guest"} {/* Fallback to "Guest" if loggedInUser is undefined */}
-              </li>
+              <li className='px-4 font-bold'>{loggedInUser}</li>
+              
             </ul>
           </div>
         </div>

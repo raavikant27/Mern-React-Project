@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 function RestaurantCard({ resData }) {
   if (!resData?.info) {
@@ -16,8 +17,13 @@ function RestaurantCard({ resData }) {
       imageUrl = `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300/${cloudinaryImageId}`;
     }
   }
-
+   
   const fallbackImage = "https://via.placeholder.com/190x120?text=No+Image";
+  
+  const {loggedInUser}=useContext(UserContext);
+
+
+
 
   return (
     <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-50 hover:bg-gray-400">
@@ -30,8 +36,10 @@ function RestaurantCard({ resData }) {
       <h3 className="font-bold py-4 text-lg">{name}</h3>
       <h4>{cuisines.join(", ")}</h4>
       <h4>{avgRating} Stars</h4>
-      <h4>{costForTwo}</h4>
-      <h4>{deliveryTime}</h4>
+      <h4>{costForTwo /100}FOR TWO</h4>
+      <h4>{deliveryTime}Minites</h4>
+       <h4>user{loggedInUser}</h4>
+
     </div>
   );
 }

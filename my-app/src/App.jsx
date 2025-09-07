@@ -13,7 +13,29 @@ import Login from './components/Login';
 // Lazy load Grocery
 const Grocery = lazy(() => import("./components/Grocery"));
 
+
 const App = ({ isDarkMode, setIsDarkMode }) => {
+
+
+  //authentication 
+
+
+
+const [userInfo,setUserInfo]=useState();
+//authentication logic
+ useEffect(()=>{
+   //make an api call and send username passowrd
+   const data ={
+
+    name:"ravikant"
+   }
+
+setUserInfo(data.name);
+ },[])
+
+
+
+
   // Apply dark mode class to the document body
   useEffect(() => {
     if (isDarkMode) {
