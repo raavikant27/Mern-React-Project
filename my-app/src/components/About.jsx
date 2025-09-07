@@ -1,4 +1,6 @@
+import { data } from "react-router-dom";
 import "../styles/About.css";
+import UserContext from "../utils/UserContext";
 
 const About = () => {
   return (
@@ -7,6 +9,14 @@ const About = () => {
         <h1>
           Welcome to <br /> The world of <br /> <span>Tasty & Fresh Food</span>
         </h1>
+        <div>
+          LoggedIn User 
+
+        
+        <UserContext.Consumer>
+          {(data)=>console.log(data)}
+        </UserContext.Consumer>
+        </div>
         <h4>
           "Better you will feel if you eat a Tasty<span>Trails</span> healthy
           meal"

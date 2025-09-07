@@ -9,6 +9,7 @@ import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
 import Cart from './components/Cart';
 import Login from './components/Login';
+import UserContext from './utils/UserContext';
 
 // Lazy load Grocery
 const Grocery = lazy(() => import("./components/Grocery"));
@@ -19,9 +20,7 @@ const App = ({ isDarkMode, setIsDarkMode }) => {
 
   //authentication 
 
-
-
-const [userInfo,setUserInfo]=useState();
+const [userName,setUserName]=useState();
 //authentication logic
  useEffect(()=>{
    //make an api call and send username passowrd
@@ -29,8 +28,8 @@ const [userInfo,setUserInfo]=useState();
 
     name:"ravikant"
    }
-
-setUserInfo(data.name);
+ 
+setUserName(data.name);
  },[])
 
 
@@ -46,11 +45,13 @@ setUserInfo(data.name);
   }, [isDarkMode]);
 
   return (
+    <UserContext.Provider value={{loggedInUser: userName}}>
     <div className="min-h-screen">
       <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Outlet />
       <Footer isDarkMode={isDarkMode} /> {/* Ensure prop is passed */}
     </div>
+    </UserContext.Provider>
   );
 };
 

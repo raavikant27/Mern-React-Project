@@ -21,6 +21,7 @@ function RestaurantCard({ resData }) {
   const fallbackImage = "https://via.placeholder.com/190x120?text=No+Image";
   
   const {loggedInUser}=useContext(UserContext);
+  console(loggedInUser);
 
 
 
