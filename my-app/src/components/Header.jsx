@@ -8,7 +8,7 @@ function Header() {
   const [isDarkMode, setIsDarkMode] = useState(false); // State for dark/light mode
   const onlineStatus = useOnlinestatus();
   const { loggedInUser } = useContext(UserContext); // Destructure loggedInUser from context
-
+    console.log(loggedInUser)
   useEffect(() => {
     // Log mount or state change (optional, remove in production)
     // console.log("useEffect called");
@@ -22,6 +22,10 @@ function Header() {
       document.body.classList.remove('dark');
     }
   }, [isDarkMode]); // Run effect when isDarkMode changes
+
+  // const data =useContext(UserContext);
+
+
 
   return (
     <header className={`bg-gradient-to-r ${isDarkMode ? 'from-gray-800 to-gray-900' : 'from-gray-100 to-gray-200'} shadow-xl sticky top-0 z-10`}>

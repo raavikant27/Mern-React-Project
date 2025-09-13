@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RestaurantCard, { withPromtedLable } from "./RestaurantCard";
 import ErrorBoundary from "./ErrorBoundary";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlinestatus from "../utils/useOnlinestatus";
+import UserContext from "../utils/UserContext";
 
 function Body() {
   const [listOfRestaurants, setRestaurants] = useState([]);
@@ -37,7 +38,7 @@ function Body() {
       );
 
       if (!response.ok) {
-        setRestaurants([]); // Set to empty array on failure
+        setRestaurants([]);
         setFilteredRestaurants([]);
         return;
       }
@@ -48,12 +49,10 @@ function Body() {
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
 
-      fetchedRestaurants.forEach((restaurant) => {});
-
       setRestaurants(fetchedRestaurants);
       setFilteredRestaurants(fetchedRestaurants);
     } catch (error) {
-      setRestaurants([]); // Set to empty array on error
+      setRestaurants([]);
       setFilteredRestaurants([]);
     }
   };
@@ -61,10 +60,13 @@ function Body() {
   const onlinestatus = useOnlinestatus();
   if (onlinestatus === false) return <h1>Looks like you're offline</h1>;
 
-  // Enhanced condition to show shimmer during loading
   if (listOfRestaurants.length === 0) {
     return <Shimmer />;
   }
+
+  const userContext = useContext(UserContext);
+  const loggedInUser = userContext.loggedInUser;
+  const setUserName = userContext.setUserName || (() => {});
 
   return (
     <ErrorBoundary>
@@ -84,30 +86,37 @@ function Body() {
           >
             Search
           </button>
-          <button
-            className="px-4 py-2 bg-gray-100 rounded-lg"
-            onClick={filterTopRated}
-          >
-            Top Rated Restaurants
-          </button>
+          <label className="ml-4">Username:</label>
+          <input
+            className="border border-black p-2 ml-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
         </div>
         <div className="flex flex-wrap">
-          {filteredRestaurants.map((restaurant) => {
-            if (!restaurant?.info?.id) return null;
-            const isPromoted = restaurant.info.promoted || false;
-            return (
-              <Link
-                key={restaurant.info.id}
-                to={`/restaurants/${restaurant.info.id}`}
-              >
-                {isPromoted ? (
-                  <RestaurantCardPromoted resData={restaurant} />
-                ) : (
-                  <RestaurantCard resData={restaurant} />
-                )}
-              </Link>
-            );
-          })}
+          {filteredRestaurants.length === 0 ? (
+            <div className="w-full text-center text-gray-500 text-lg py-8">
+              No restaurants found.
+            </div>
+          ) : (
+            filteredRestaurants.map((restaurant) => {
+              if (!restaurant?.info?.id) return null;
+              // Check if restaurant is promoted
+              const isPromoted = restaurant.info.promoted === true;
+              return (
+                <Link
+                  key={restaurant.info.id}
+                  to={`/restaurants/${restaurant.info.id}`}
+                >
+                  {isPromoted ? (
+                    <RestaurantCardPromoted resData={restaurant} />
+                  ) : (
+                    <RestaurantCard resData={restaurant} />
+                  )}
+                </Link>
+              );
+            })
+          )}
         </div>
       </div>
     </ErrorBoundary>

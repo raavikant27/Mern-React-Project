@@ -11,29 +11,20 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import UserContext from './utils/UserContext';
 
-// Lazy load Grocery
+// Lazy load Grocery component
 const Grocery = lazy(() => import("./components/Grocery"));
 
-
 const App = ({ isDarkMode, setIsDarkMode }) => {
+  // User authentication state
+  const [userName, setUserName] = useState('');
 
-
-  //authentication 
-
-const [userName,setUserName]=useState();
-//authentication logic
- useEffect(()=>{
-   //make an api call and send username passowrd
-   const data ={
-
-    name:"ravikant"
-   }
- 
-setUserName(data.name);
- },[])
-
-
-
+  // Simulate authentication API call and set username
+  useEffect(() => {
+    const data = {
+      name: "ravikant Singh", // Username with space
+    };
+    setUserName(data.name);
+  }, []);
 
   // Apply dark mode class to the document body
   useEffect(() => {
@@ -45,33 +36,26 @@ setUserName(data.name);
   }, [isDarkMode]);
 
   return (
-    <UserContext.Provider value={{loggedInUser: userName}}>
-    <div className="min-h-screen">
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <Outlet />
-      <Footer isDarkMode={isDarkMode} /> {/* Ensure prop is passed */}
-    </div>
+    // Provide both loggedInUser and setUserName in context
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="min-h-screen">
+        <Header className="app" isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <Outlet />
+        <Footer isDarkMode={isDarkMode} />
+      </div>
     </UserContext.Provider>
   );
 };
 
+// Router configuration
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App isDarkMode={false} setIsDarkMode={() => {}} />, // Initial state, will be overridden by Root
+    element: <App isDarkMode={false} setIsDarkMode={() => {}} />,
     children: [
-      {
-        path: "/",
-        element: <Body />,
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
+      { path: "/", element: <Body /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
       {
         path: "/grocery",
         element: (
@@ -80,18 +64,9 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
-      {
-        path: "/restaurants/:resId",
-        element: <RestaurantMenu />,
-      },
-      {
-        path: "/cart",
-        element: <Cart />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
+      { path: "/restaurants/:resId", element: <RestaurantMenu /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/login", element: <Login /> },
     ],
     errorElement: <Error />,
   },
