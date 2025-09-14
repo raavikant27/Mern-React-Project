@@ -52,6 +52,17 @@ pag-lpaod -api -render.
    ### tailwind css
    1- tailwind 
 
+   ## Redux tooklkit
+
+    - Install @reduxjs/toolkit  and react-redux
+    - Bukid our store
+    - Connect our stroe to our app
+    - slice (CarSlice)
+    - dispatch(action)
+    - Selector
+
+    
+
 
    
 

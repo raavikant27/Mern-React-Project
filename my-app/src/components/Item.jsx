@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
 const Item = ({ item }) => {
   const [imageLoaded, setImageLoaded] = useState(false); // Track image load state
+  const dispatch = useDispatch();
 
   const getItemPrice = (item) => {
     const price = item?.card?.info?.price || item?.card?.info?.defaultPrice || 0;
@@ -45,6 +48,11 @@ const Item = ({ item }) => {
     setImageLoaded(false);
   }, [item]);
 
+  const handleAddItem = () => {
+    // Dispatch an action to add complete item object to cart
+    dispatch(addItem(item?.card?.info || { name: "Unknown Item" }));
+  };
+
   return (
     // List item with all content in a single line
     <li
@@ -67,7 +75,8 @@ const Item = ({ item }) => {
                 className="w-28 h-28 object-cover rounded" // Updated fallback size
               />
             )}
-            <button className="Relative p-2 mx-16 rounded-lg bg-black text-white shadow-lg">
+            <button className="Relative p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
+                onClick={handleAddItem}>
               add+
             </button>
           </div>

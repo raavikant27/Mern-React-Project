@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
 // Import the Item component to display individual menu items
 import Item from "./Item";
 
@@ -7,16 +7,31 @@ const RestaurantCategory = ({ categories, isDarkMode }) => {
   // Step 1: Create a state to keep track of the index of the currently expanded category
   // Use null to indicate no category is expanded
   const [expandedCategoryIndex, setExpandedCategoryIndex] = useState(null);
+  
+  // Use ref to maintain state across re-renders
+  const accordionStateRef = useRef(null);
+  
+  // Initialize accordion state from ref if available
+  useEffect(() => {
+    if (accordionStateRef.current !== null) {
+      setExpandedCategoryIndex(accordionStateRef.current);
+    }
+  }, []);
+  
+  // Update ref whenever state changes
+  useEffect(() => {
+    accordionStateRef.current = expandedCategoryIndex;
+  }, [expandedCategoryIndex]);
 
   // Step 2: Function to handle clicking on a category to expand or collapse it
   // The 'categoryIndex' parameter tells us which category was clicked
-  const handleCategoryClick = (categoryIndex) => {
+  const handleCategoryClick = useCallback((categoryIndex) => {
     // Step 3: Update the state to either expand the clicked category or collapse all
     // If the clicked category is already open, collapse it; otherwise, open it and close others
     setExpandedCategoryIndex((currentIndex) =>
       currentIndex === categoryIndex ? null : categoryIndex
     );
-  };
+  }, []);
 
   // Step 4: Render the category list section
   return (
@@ -39,12 +54,12 @@ const RestaurantCategory = ({ categories, isDarkMode }) => {
       ) : (
         // Step 6: If categories exist, create an unordered list to display them nd it controlled by parents thatss why it is controll components 
         <ul>
-          //
-          {categories.map((category, index) => {
-            // Count the number of items in the current category, default to 0 if undefined
-            const numberOfItems = category?.itemCards?.length || 0;
-            // Check if the current category is expanded based on its index
-            const isCategoryExpanded = expandedCategoryIndex === index;
+          {useMemo(() => 
+            categories.map((category, index) => {
+              // Count the number of items in the current category, default to 0 if undefined
+              const numberOfItems = category?.itemCards?.length || 0;
+              // Check if the current category is expanded based on its index
+              const isCategoryExpanded = expandedCategoryIndex === index;
 
             return (
               // Step 7: Create a list item for each category
@@ -89,7 +104,7 @@ const RestaurantCategory = ({ categories, isDarkMode }) => {
                 )}
               </li>
             );
-          })}
+          }), [categories, expandedCategoryIndex, isDarkMode, handleCategoryClick])}
         </ul>
       )}
     </div>

@@ -10,7 +10,7 @@ function Error() {
 
   <h3>
 
-    {erro.status}:{err.statusText}
+    {err.status}:{err.statusText}
   </h3>
 
     </div>

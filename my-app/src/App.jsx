@@ -7,9 +7,13 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
-import Cart from './components/Cart';
+import Cart from "./components/cart";
 import Login from './components/Login';
 import UserContext from './utils/UserContext';
+
+import { Provider } from "react-redux";
+
+import appStore from './utils/appStore';
 
 // Lazy load Grocery component
 const Grocery = lazy(() => import("./components/Grocery"));
@@ -36,14 +40,16 @@ const App = ({ isDarkMode, setIsDarkMode }) => {
   }, [isDarkMode]);
 
   return (
-    // Provide both loggedInUser and setUserName in context
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div className="min-h-screen">
-        <Header className="app" isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-        <Outlet />
-        <Footer isDarkMode={isDarkMode} />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      {/* Provide both loggedInUser and setUserName in context */}
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="min-h-screen">
+          <Header className="app" isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <Outlet />
+          <Footer isDarkMode={isDarkMode} />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -77,11 +83,7 @@ const Root = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
-    <RouterProvider
-      router={appRouter}
-      isDarkMode={isDarkMode}
-      setIsDarkMode={setIsDarkMode}
-    />
+    <RouterProvider router={appRouter} />
   );
 };
 

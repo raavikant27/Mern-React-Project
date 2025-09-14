@@ -67,7 +67,7 @@ function RestaurantMenu({ isDarkMode }) { // Added isDarkMode prop for theme sup
   return (
     <div className={`p-6 font-sans min-h-screen pt-32 ${isDarkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-900'}`}>
       <RestaurantInfo info={infoCard} />
-      <RestaurantCategory categories={categories} isDarkMode={isDarkMode} /> {/* Use new component */}
+      <RestaurantCategory key="restaurant-categories" categories={categories} isDarkMode={isDarkMode} /> {/* Use new component */}
     </div>
   );
 }

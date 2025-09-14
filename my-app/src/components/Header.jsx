@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useOnlinestatus from '../utils/useOnlinestatus';
 import UserContext from '../utils/UserContext';
 
@@ -24,8 +25,8 @@ function Header() {
   }, [isDarkMode]); // Run effect when isDarkMode changes
 
   // const data =useContext(UserContext);
-
-
+   //subscribing to the store using a selector  give acces to the store  
+ const cartItems=useSelector((store)=> store.cart.items);
 
   return (
     <header className={`bg-gradient-to-r ${isDarkMode ? 'from-gray-800 to-gray-900' : 'from-gray-100 to-gray-200'} shadow-xl sticky top-0 z-10`}>
@@ -57,8 +58,8 @@ function Header() {
               <li className={`text-sm font-medium ${isDarkMode ? 'text-gray-300 hover:text-gray-100' : 'text-gray-700 hover:text-gray-900'} transition-colors`}>
                 <Link to="/Grocery">Grocery</Link>
               </li>
-              <li className={`text-sm font-medium ${isDarkMode ? 'text-gray-300 hover:text-gray-100' : 'text-gray-700 hover:text-gray-900'} transition-colors`}>
-                <Link to="/cart">Cart</Link>
+              <li className={`text-sm font-bold ${isDarkMode ? 'text-gray-300 hover:text-gray-100' : 'text-gray-700 hover:text-gray-900'} transition-colors`}>
+                <Link to="/cart">Cart ({cartItems.length} items)</Link>
               </li>
               <li>
                 <button
