@@ -21,7 +21,7 @@ const schema = Yup.object().shape({
     .oneOf([Yup.ref('password')], "Passwords must match"),
 });
 
-const Signup = () => {
+const Signup = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((store) => store.auth);
@@ -65,11 +65,11 @@ const Signup = () => {
           handleBlur,
           handleSubmit,
         }) => (
-          <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+          <div className={`flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
             <div className="max-w-md w-full space-y-8">
-              <div className="bg-white py-8 px-4 shadow-xl rounded-lg sm:px-10">
+              <div className={`py-8 px-4 shadow-xl rounded-lg sm:px-10 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Sign Up</h2>
+                  <h2 className={`text-3xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Sign Up</h2>
                 </div>
                 <form noValidate onSubmit={handleSubmit} className="space-y-6">
                   {/* Name input */}

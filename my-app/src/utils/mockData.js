@@ -1,4 +1,4 @@
-     const resObj=[
+export const resObj=[
   {
     "card": {
       "@type": "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget",

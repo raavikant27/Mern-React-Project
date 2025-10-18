@@ -1,34 +1,95 @@
-/* About us page CSS Start */
+/* Modern About Page Styles *//* About us page CSS Start */
+
 .about-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+
+/* Custom scrollbar */  display: flex;
+
+::-webkit-scrollbar {  flex-wrap: wrap;
+
+  width: 8px;  justify-content: center;
+
+}  align-items: center;
+
   width: 90%;
-  gap: 40px;
-}
 
-.about-container .about-left h1 {
+::-webkit-scrollbar-track {  gap: 40px;
+
+  background: #f1f1f1;}
+
+  border-radius: 10px;
+
+}.about-container .about-left h1 {
+
   font-size: 50px;
-}
 
-.about-container .about-left h1 span {
-  background-color: #d97919;
+::-webkit-scrollbar-thumb {}
+
+  background: linear-gradient(180deg, #f97316, #dc2626);
+
+  border-radius: 10px;.about-container .about-left h1 span {
+
+}  background-color: #d97919;
+
   padding: 0 10px;
-  border-radius: 15px;
-  color: white;
+
+/* Smooth transitions */  border-radius: 15px;
+
+* {  color: white;
+
+  transition: all 0.3s ease;}
+
 }
 
 .about-container .about-left h4 {
-  font-size: 22px;
-  padding-top: 10px;
-  font-style: italic;
-}
 
-.about-container .about-left h4 span {
-  color: #d97919;
+/* Gradient text animation */  font-size: 22px;
+
+@keyframes gradient-x {  padding-top: 10px;
+
+  0%, 100% {  font-style: italic;
+
+    background-position: 0% 50%;}
+
+  }
+
+  50% {.about-container .about-left h4 span {
+
+    background-position: 100% 50%;  color: #d97919;
+
+  }}
+
 }
 
 .about-container .about-right img {
-  width: 450px;
+
+.gradient-text {  width: 450px;
+
+  background: linear-gradient(-45deg, #f97316, #dc2626, #f97316, #dc2626);}
+
+  background-size: 400% 400%;
+  animation: gradient-x 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mobile-text-center {
+    text-align: center;
+  }
 }
